@@ -21,7 +21,7 @@ pub mod first_app {
             let mut vector_of_numbers = (0u64..lenght).collect::<Vec<_>>();
             vector_of_numbers.sort();
 
-            let mut median;
+            let median;
             if vector_of_numbers.len() % 2 == 0 {
                 median = vector_of_numbers[vector_of_numbers.len() / 2];
             } else {
