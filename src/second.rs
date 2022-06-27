@@ -1,4 +1,3 @@
-
 pub mod second_app {
     use std::io;
 
@@ -17,22 +16,29 @@ pub mod second_app {
                 }
             };
 
-            let words = user_phraze.split_whitespace();
-
-            let vowels = ["a", "e", "i", "o", "u", "A", "E", "I", "O", "U"];
             let mut encoded_phraze = String::new();
-            let encrypted_word = String::new();
-            for w in words {
-                let first_letter = &w[0..1];
-                if vowels.contains(&first_letter) {
-                    let encrypted_word = format!("{w}-hay");
-                } else {
-                    let ew = &w[1..];
-                    let encrypted_word = format!("{ew}-{first_letter}ay");
+            for (i, word) in user_phraze.split_whitespace().enumerate() {
+                let encrypted_word = encode(word);
+                if i != 0 {
+                    encoded_phraze += " ";
                 }
-                encoded_phraze.push_str(&format!(" {encrypted_word}"));
+                encoded_phraze.push_str(&encrypted_word);
             }
             println!("{encoded_phraze}");
         }
+    }
+
+    fn encode(word: &str) -> String {
+        let eng_vowels = ["a", "e", "i", "o", "u", "A", "E", "I", "O", "U"];
+        let first_letter = &word[0..1];
+        let encrypted_word;
+
+        if eng_vowels.contains(&first_letter) {
+            encrypted_word = format!("{word}-hay");
+        } else {
+            let word_slice = &word[1..];
+            encrypted_word = format!("{word_slice}-{first_letter}ay");
+        };
+        encrypted_word
     }
 }
