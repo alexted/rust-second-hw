@@ -4,7 +4,7 @@ pub mod third_app {
 
     pub fn personnel_accounting() {
         println!("Введите команду (eng):");
-        let company: HashMap<String, Vec<String>> = HashMap::new();
+        let mut company: HashMap<String, Vec<String>> = HashMap::new();
         const ADD: &str = "add";
         const LIST: &str = "list";
 
@@ -22,8 +22,25 @@ pub mod third_app {
             };
 
             let command_words = user_command.split_whitespace().collect::<Vec<_>>();
-            let verb = command_words[0].to_lowercase();
-            println!("DUBUG");
+
+            match command_words[0] {
+                ADD => {
+                    if command_words.len() < 4 {
+                        println!("некорректно введена команда!");
+                        continue
+                    };
+                    let department_name = command_words[3].parse().unwrap();
+                    let employer_name = command_words[1].parse().unwrap();
+                    let department_unit = company.entry(department_name).or_insert(Vec::new());
+                    department_unit.push(employer_name);
+                    println!("{company:#?}");
+                },
+                LIST => {
+                    println!("WIP")
+                },
+                _ => println!("нет такой команды!")
+            }
+            println!("FOR DEBUG");
         }
     }
 }
